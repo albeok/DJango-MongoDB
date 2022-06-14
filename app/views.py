@@ -19,10 +19,12 @@ def match(request):
         i = 0
         greater_buy_order = buy_orders[i] 
         lower_sell_order = sell_orders[i]
-        if greater_buy_order.profile.belongs_to == lower_sell_order.profile.belongs_to: 
-            i += 1
-        greater_buy_order = buy_orders[i] 
-        lower_sell_order = sell_orders[i]
+        while greater_buy_order.profile.belongs_to == lower_sell_order.profile.belongs_to: 
+            if i <= len(buy_orders):
+                i += 1
+                break
+            elif i > len(buy_orders):
+                break
         if greater_buy_order.profile.belongs_to != lower_sell_order.profile.belongs_to:
             wallet_buyer = Wallet.objects.get(belongs_to=greater_buy_order.profile.belongs_to)
             wallet_seller = Wallet.objects.get(belongs_to=lower_sell_order.profile.belongs_to)
