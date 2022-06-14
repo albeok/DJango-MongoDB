@@ -1,0 +1,11 @@
+{% extends 'app/base.html' %}
+{% load crispy_forms_tags %}
+{% block head_title %}{{ block.super }} - No Matching Orders{% endblock head_title %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-3 text-center">
+            <h5 class="mt-4 mb-4">No matching orders in this moment.</h5>
+            <p> If the transaction takes place it will be displayed in <a href="{% url 'profit' %}">Profit</a> section. Alternatively, you can also check if your transaction is still 'pending' in <a href="{% url 'json_pending_orders' %}">Pending Orders(JSON)</a> section. </p>
+        </div>  
+    </div>
+{% endblock content %}
