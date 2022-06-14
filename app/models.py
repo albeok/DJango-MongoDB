@@ -1,22 +1,9 @@
 from django.db import models
-from djongo.models.fields import ObjectIdField, Field
+from djongo.models.fields import ObjectIdField
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from random import uniform
-
-# class Profile(models.Model):
-#     _id = ObjectIdField()
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     ips = models.Field(default=['127.0.0.1'])
-
-#     class Meta:
-#         verbose_name = "Profile"
-#         verbose_name_plural = "Profiles"
-#         ordering = ['user']
-
-#     def __str__(self):
-#         return self.user.username
 
 class Wallet(models.Model):
     _id = ObjectIdField()
