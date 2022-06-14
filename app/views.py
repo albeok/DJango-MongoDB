@@ -1,4 +1,3 @@
-# from django.views import View
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import CreateView
@@ -78,7 +77,7 @@ def profit(request):
         json_response = {"This is your wallet right now": dict_profit, "This is the complete history of all your transactions": all_transactions_list}
         return JsonResponse(json_response)
     return HttpResponse("<h1>You've never placed an order. Start it now!</h1>")
-    
+
 @login_required
 def json_pending_orders_view(request):
     pending_orders = Order.objects.filter(status='pending').order_by('-datetime')
