@@ -4,7 +4,7 @@ from app.models import Wallet, Order
 class PlaceOrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ('price', 'quantity', 'type')
+        fields = ('price', 'quantity', 'type_order')
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
@@ -13,7 +13,7 @@ class PlaceOrderForm(forms.ModelForm):
     def clean(self):
         price = self.cleaned_data['price']
         quantity = self.cleaned_data['quantity']
-        type = self.cleaned_data['type']
+        type_order = self.cleaned_data['type_order']
         wallet_profile = Wallet.objects.get(belongs_to=self.request.user)
         usd_balance_wallet_profile = wallet_profile.usd_balance
         btc_balance_wallet_profile = wallet_profile.btc_balance
@@ -21,9 +21,9 @@ class PlaceOrderForm(forms.ModelForm):
             raise forms.ValidationError("Price must be greater than 0")
         elif quantity <= 0:
             raise forms.ValidationError("Quantity must be greater than 0")
-        elif price * quantity > usd_balance_wallet_profile and type == "buy":
+        elif price * quantity > usd_balance_wallet_profile and type_order == "buy":
             raise forms.ValidationError("You don't have enough money")
-        elif quantity > btc_balance_wallet_profile and type == "sell":
+        elif quantity > btc_balance_wallet_profile and type_order == "sell":
             raise forms.ValidationError("You don't have enough Bitcoins")
 
 

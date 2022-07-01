@@ -32,7 +32,7 @@ class Order(models.Model):
     price = models.FloatField()
     quantity = models.FloatField()
     status = models.CharField(max_length=10, choices=(("pending", "pending"), ("completed", "completed")), default='pending')
-    type = models.CharField(max_length=4, choices=(("buy", "buy"), ("sell", "sell")), default='')
+    type_order = models.CharField(max_length=4, choices=(("buy", "buy"), ("sell", "sell")), default='')
 
     class Meta:
         verbose_name = 'Order'
