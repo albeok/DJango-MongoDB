@@ -56,7 +56,7 @@ def match(request):
                 json_r = {"Exchange between these two wallets":{"wallet_buyer": buyer, "wallet_seller": seller}}
                 return JsonResponse(json_r)
             # same wallets, change matching until it finds different wallets. If it doesn't, return "no matches found".
-            elif wallet_buyer.belongs_to == wallet_seller.belongs_to and wallet_buyer.usd_balance >= lower_sell_order.price * lower_sell_order.quantity:
+            elif wallet_buyer.belongs_to == wallet_seller.belongs_to:
                 for x in range(50): 
                     i = randint(0, len(buy_orders) - 1)
                     greater_buy_order = buy_orders[i]
@@ -64,8 +64,12 @@ def match(request):
                     n = randint(0, len(sell_orders) - 1)
                     lower_sell_order = sell_orders[n]
                     lower_sell_order.save()
+                    wallet_buyer = Wallet.objects.get(
+                    belongs_to=greater_buy_order.profile.belongs_to)
+                    wallet_seller = Wallet.objects.get(
+                    belongs_to=lower_sell_order.profile.belongs_to)
                     print(i, n)
-                    if greater_buy_order.profile.belongs_to != lower_sell_order.profile.belongs_to:
+                    if greater_buy_order.profile.belongs_to != lower_sell_order.profile.belongs_to and wallet_buyer.usd_balance >= lower_sell_order.price * lower_sell_order.quantity:
                         wallet_buyer.usd_balance -= lower_sell_order.price * lower_sell_order.quantity
                         wallet_buyer.btc_balance += lower_sell_order.quantity
                         wallet_buyer.save()
