@@ -1,4 +1,4 @@
-# DJango-MongoDB EXCHANGE
+# DJango-MongoDB BITCOIN EXCHANGE
 * Install MongoDB on your operating system.
 * After activating virtualenv install everything is in "Technologies" down below.
 * Digit << sudo service mongod start >> and now you can run the server.
